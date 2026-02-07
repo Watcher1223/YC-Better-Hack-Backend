@@ -1,6 +1,10 @@
 """Entry point to run the FastAPI application."""
 
 import uvicorn
+from app.main import app
+
+# Export app for uvicorn/gunicorn when called as "main:app"
+__all__ = ["app"]
 
 if __name__ == "__main__":
     uvicorn.run(
