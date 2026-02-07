@@ -44,7 +44,7 @@ async def create_product(product: ProductCreate):
     """Create a new product."""
     global next_product_id
     new_product = {
-        "id": next_product_id,
+        "product_id": next_product_id,
         **product.model_dump()
     }
     products_db.append(new_product)

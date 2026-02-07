@@ -22,9 +22,9 @@ async def create_order(order: OrderCreate):
     total = 0.0
     
     for item in order.items:
-        product = next((p for p in products_db if p["id"] == item.product_id), None)
+        product = next((p for p in products_db if p["id"] == item.productId), None)
         if not product:
-            raise HTTPException(status_code=404, detail=f"Product {item.product_id} not found")
+            raise HTTPException(status_code=404, detail=f"Product {item.productId} not found")
         
         products.append(product)
         total += product["price"] * item.quantity

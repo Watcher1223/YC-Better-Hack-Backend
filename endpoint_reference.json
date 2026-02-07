@@ -1,0 +1,382 @@
+{
+  "api": {
+    "title": "PreMan Demo API",
+    "version": "1.0.0",
+    "base_url": "http://localhost:8000"
+  },
+  "total_endpoints": 17,
+  "total_with_body_schemas": 10,
+  "total_with_nested_schemas": 3,
+  "endpoints": [
+    {
+      "id": 1,
+      "method": "GET",
+      "path": "/",
+      "summary": "API information",
+      "tags": ["info"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [],
+      "query_params": [],
+      "response_model": null,
+      "source_file": "app/main.py"
+    },
+    {
+      "id": 2,
+      "method": "GET",
+      "path": "/health",
+      "summary": "Health check endpoint",
+      "tags": ["health"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [],
+      "query_params": [],
+      "response_model": null,
+      "source_file": "app/main.py"
+    },
+    {
+      "id": 3,
+      "method": "GET",
+      "path": "/users",
+      "summary": "List all users",
+      "tags": ["users"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [],
+      "query_params": [
+        {"name": "skip", "type": "integer", "required": false, "default": 0, "constraints": {"ge": 0}},
+        {"name": "limit", "type": "integer", "required": false, "default": 10, "constraints": {"ge": 1, "le": 100}},
+        {"name": "search", "type": "string", "required": false, "default": null}
+      ],
+      "response_model": "List[User]",
+      "source_file": "app/routers/users.py"
+    },
+    {
+      "id": 4,
+      "method": "GET",
+      "path": "/users/{user_id}",
+      "summary": "Get user by ID",
+      "tags": ["users"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [
+        {"name": "user_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": "User",
+      "source_file": "app/routers/users.py"
+    },
+    {
+      "id": 5,
+      "method": "POST",
+      "path": "/users",
+      "summary": "Create a new user",
+      "tags": ["users"],
+      "status_code": 201,
+      "request_body": {
+        "model": "UserCreate",
+        "fields": [
+          {"name": "name", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 100}},
+          {"name": "email", "type": "string", "required": true, "constraints": {"pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"}},
+          {"name": "age", "type": "integer", "required": false, "default": null, "constraints": {"ge": 0, "le": 150}}
+        ]
+      },
+      "path_params": [],
+      "query_params": [],
+      "response_model": "User",
+      "source_file": "app/routers/users.py"
+    },
+    {
+      "id": 6,
+      "method": "PUT",
+      "path": "/users/{user_id}",
+      "summary": "Update user",
+      "tags": ["users"],
+      "status_code": 200,
+      "request_body": {
+        "model": "UserUpdate",
+        "fields": [
+          {"name": "name", "type": "string", "required": false, "default": null, "constraints": {"min_length": 1, "max_length": 100}},
+          {"name": "email", "type": "string", "required": false, "default": null, "constraints": {"pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"}},
+          {"name": "age", "type": "integer", "required": false, "default": null, "constraints": {"ge": 0, "le": 150}}
+        ]
+      },
+      "path_params": [
+        {"name": "user_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": "User",
+      "source_file": "app/routers/users.py"
+    },
+    {
+      "id": 7,
+      "method": "DELETE",
+      "path": "/users/{user_id}",
+      "summary": "Delete user",
+      "tags": ["users"],
+      "status_code": 204,
+      "request_body": null,
+      "path_params": [
+        {"name": "user_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": null,
+      "source_file": "app/routers/users.py"
+    },
+    {
+      "id": 8,
+      "method": "GET",
+      "path": "/products",
+      "summary": "List all products",
+      "tags": ["products"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [],
+      "query_params": [
+        {"name": "skip", "type": "integer", "required": false, "default": 0, "constraints": {"ge": 0}},
+        {"name": "limit", "type": "integer", "required": false, "default": 10, "constraints": {"ge": 1, "le": 100}},
+        {"name": "min_price", "type": "float", "required": false, "default": null, "constraints": {"ge": 0}},
+        {"name": "max_price", "type": "float", "required": false, "default": null, "constraints": {"ge": 0}},
+        {"name": "in_stock", "type": "boolean", "required": false, "default": null}
+      ],
+      "response_model": "List[Product]",
+      "source_file": "app/routers/products.py"
+    },
+    {
+      "id": 9,
+      "method": "GET",
+      "path": "/products/{product_id}",
+      "summary": "Get product by ID",
+      "tags": ["products"],
+      "status_code": 200,
+      "request_body": null,
+      "path_params": [
+        {"name": "product_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": "Product",
+      "source_file": "app/routers/products.py"
+    },
+    {
+      "id": 10,
+      "method": "POST",
+      "path": "/products",
+      "summary": "Create a new product",
+      "tags": ["products"],
+      "status_code": 201,
+      "request_body": {
+        "model": "ProductCreate",
+        "fields": [
+          {"name": "name", "type": "string", "required": true, "constraints": {"min_length": 1}},
+          {"name": "price", "type": "float", "required": true, "constraints": {"gt": 0}},
+          {"name": "description", "type": "string", "required": false, "default": null},
+          {"name": "in_stock", "type": "boolean", "required": false, "default": true}
+        ]
+      },
+      "path_params": [],
+      "query_params": [],
+      "response_model": "Product",
+      "source_file": "app/routers/products.py"
+    },
+    {
+      "id": 11,
+      "method": "POST",
+      "path": "/orders",
+      "summary": "Create an order",
+      "tags": ["orders"],
+      "status_code": 201,
+      "request_body": {
+        "model": "OrderCreate",
+        "nested": true,
+        "fields": [
+          {"name": "user_id", "type": "integer", "required": true, "constraints": {"gt": 0}},
+          {
+            "name": "items",
+            "type": "List[OrderItem]",
+            "required": true,
+            "constraints": {"min_items": 1, "max_items": 50},
+            "nested_model": {
+              "model": "OrderItem",
+              "fields": [
+                {"name": "product_id", "type": "integer", "required": true, "constraints": {"gt": 0}},
+                {"name": "quantity", "type": "integer", "required": true, "constraints": {"ge": 1, "le": 100}},
+                {"name": "special_instructions", "type": "string", "required": false, "default": null, "constraints": {"max_length": 500}}
+              ]
+            }
+          },
+          {
+            "name": "shipping_address",
+            "type": "AddressCreate",
+            "required": false,
+            "default": null,
+            "nested_model": {
+              "model": "AddressCreate",
+              "fields": [
+                {"name": "street", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 200}},
+                {"name": "city", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 100}},
+                {"name": "state", "type": "string", "required": true, "constraints": {"min_length": 2, "max_length": 2}},
+                {"name": "zip_code", "type": "string", "required": true, "constraints": {"pattern": "^\\d{5}(-\\d{4})?$"}},
+                {"name": "country", "type": "string", "required": false, "default": "USA", "constraints": {"min_length": 2, "max_length": 100}},
+                {"name": "is_primary", "type": "boolean", "required": false, "default": false}
+              ]
+            }
+          },
+          {"name": "notes", "type": "string", "required": false, "default": null, "constraints": {"max_length": 1000}},
+          {"name": "payment_method", "type": "string", "required": false, "default": null, "constraints": {"max_length": 50}}
+        ]
+      },
+      "path_params": [],
+      "query_params": [],
+      "response_model": "OrderResponse",
+      "source_file": "app/routers/orders.py"
+    },
+    {
+      "id": 12,
+      "method": "POST",
+      "path": "/auth/login",
+      "summary": "Login",
+      "tags": ["auth"],
+      "status_code": 200,
+      "request_body": {
+        "model": "LoginRequest",
+        "fields": [
+          {"name": "email", "type": "string", "required": true, "constraints": {"pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"}},
+          {"name": "password", "type": "string", "required": true, "constraints": {"min_length": 8, "max_length": 100}}
+        ]
+      },
+      "path_params": [],
+      "query_params": [],
+      "response_model": null,
+      "source_file": "app/routers/auth.py"
+    },
+    {
+      "id": 13,
+      "method": "POST",
+      "path": "/auth/register",
+      "summary": "Register a new user",
+      "tags": ["auth"],
+      "status_code": 201,
+      "request_body": {
+        "model": "RegisterRequest",
+        "fields": [
+          {"name": "name", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 100}},
+          {"name": "email", "type": "string", "required": true, "constraints": {"pattern": "^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"}},
+          {"name": "password", "type": "string", "required": true, "constraints": {"min_length": 8, "max_length": 100}},
+          {"name": "confirm_password", "type": "string", "required": true, "constraints": {"min_length": 8, "max_length": 100}},
+          {"name": "age", "type": "integer", "required": false, "default": null, "constraints": {"ge": 0, "le": 150}}
+        ]
+      },
+      "path_params": [],
+      "query_params": [],
+      "response_model": "User",
+      "source_file": "app/routers/auth.py"
+    },
+    {
+      "id": 14,
+      "method": "POST",
+      "path": "/users/{user_id}/addresses",
+      "summary": "Add address for user",
+      "tags": ["addresses"],
+      "status_code": 201,
+      "request_body": {
+        "model": "AddressCreate",
+        "fields": [
+          {"name": "street", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 200}},
+          {"name": "city", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 100}},
+          {"name": "state", "type": "string", "required": true, "constraints": {"min_length": 2, "max_length": 2}},
+          {"name": "zip_code", "type": "string", "required": true, "constraints": {"pattern": "^\\d{5}(-\\d{4})?$"}},
+          {"name": "country", "type": "string", "required": false, "default": "USA", "constraints": {"min_length": 2, "max_length": 100}},
+          {"name": "is_primary", "type": "boolean", "required": false, "default": false}
+        ]
+      },
+      "path_params": [
+        {"name": "user_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": "Address",
+      "source_file": "app/routers/addresses.py"
+    },
+    {
+      "id": 15,
+      "method": "POST",
+      "path": "/products/{product_id}/reviews",
+      "summary": "Create product review",
+      "tags": ["reviews"],
+      "status_code": 201,
+      "request_body": {
+        "model": "ReviewCreate",
+        "fields": [
+          {"name": "rating", "type": "integer", "required": true, "constraints": {"ge": 1, "le": 5}},
+          {"name": "title", "type": "string", "required": true, "constraints": {"min_length": 1, "max_length": 200}},
+          {"name": "comment", "type": "string", "required": true, "constraints": {"min_length": 10, "max_length": 2000}},
+          {"name": "verified_purchase", "type": "boolean", "required": false, "default": false}
+        ]
+      },
+      "path_params": [
+        {"name": "product_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [
+        {"name": "user_id", "type": "integer", "required": true, "constraints": {"gt": 0}}
+      ],
+      "response_model": "Review",
+      "source_file": "app/routers/reviews.py"
+    },
+    {
+      "id": 16,
+      "method": "POST",
+      "path": "/cart",
+      "summary": "Create shopping cart",
+      "tags": ["cart"],
+      "status_code": 201,
+      "request_body": {
+        "model": "CartCreate",
+        "nested": true,
+        "fields": [
+          {
+            "name": "items",
+            "type": "List[CartItem]",
+            "required": true,
+            "constraints": {"min_items": 1, "max_items": 50},
+            "nested_model": {
+              "model": "CartItem",
+              "fields": [
+                {"name": "product_id", "type": "integer", "required": true, "constraints": {"gt": 0}},
+                {"name": "quantity", "type": "integer", "required": true, "constraints": {"ge": 1, "le": 100}}
+              ]
+            }
+          },
+          {"name": "coupon_code", "type": "string", "required": false, "default": null, "constraints": {"max_length": 20}}
+        ]
+      },
+      "path_params": [],
+      "query_params": [
+        {"name": "user_id", "type": "integer", "required": false, "default": null, "constraints": {"gt": 0}}
+      ],
+      "response_model": "Cart",
+      "source_file": "app/routers/cart.py"
+    },
+    {
+      "id": 17,
+      "method": "POST",
+      "path": "/users/{user_id}/notifications/preferences",
+      "summary": "Update notification preferences",
+      "tags": ["notifications"],
+      "status_code": 200,
+      "request_body": {
+        "model": "NotificationPreferences",
+        "fields": [
+          {"name": "order_updates", "type": "enum", "required": false, "default": "email", "enum_values": ["email", "sms", "push", "none"], "enum_model": "NotificationType"},
+          {"name": "promotions", "type": "enum", "required": false, "default": "email", "enum_values": ["email", "sms", "push", "none"], "enum_model": "NotificationType"},
+          {"name": "shipping_updates", "type": "enum", "required": false, "default": "sms", "enum_values": ["email", "sms", "push", "none"], "enum_model": "NotificationType"},
+          {"name": "marketing", "type": "enum", "required": false, "default": "none", "enum_values": ["email", "sms", "push", "none"], "enum_model": "NotificationType"}
+        ]
+      },
+      "path_params": [
+        {"name": "user_id", "type": "integer", "constraints": {"gt": 0}}
+      ],
+      "query_params": [],
+      "response_model": null,
+      "source_file": "app/routers/notifications.py"
+    }
+  ]
+}
