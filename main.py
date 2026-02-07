@@ -1,6 +1,10 @@
 """Entry point to run the FastAPI application."""
 
-import uvicorn
+try:
+    import uvicorn  # type: ignore
+except ImportError:
+    raise ImportError("uvicorn is not installed. Run: pip install uvicorn[standard]")
+
 from app.main import app
 
 # Export app for uvicorn/gunicorn when called as "main:app"
