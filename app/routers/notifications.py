@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException, Path
 from datetime import datetime
 
-from app.models import NotificationPreferences
+from app.models import NotificationPreferences, NotificationType
 from app.database import users_db
 
 router = APIRouter(tags=["notifications"])

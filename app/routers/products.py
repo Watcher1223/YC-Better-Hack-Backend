@@ -4,9 +4,11 @@ from fastapi import APIRouter, HTTPException, Query, Path
 from typing import List, Optional
 
 from app.models import Product, ProductCreate
-from app.database import products_db, next_product_id
+from app.database import products_db
 
 router = APIRouter(prefix="/products", tags=["products"])
+
+next_product_id = 1
 
 
 @router.get("", response_model=List[Product], summary="List all products")
@@ -44,7 +46,7 @@ async def create_product(product: ProductCreate):
     """Create a new product."""
     global next_product_id
     new_product = {
-        "product_id": next_product_id,
+        "id": next_product_id,
         **product.model_dump()
     }
     products_db.append(new_product)
