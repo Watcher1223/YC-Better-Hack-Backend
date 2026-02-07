@@ -1,0 +1,19 @@
+id: POST__products__ede2c5a6
+method: POST
+path: /products
+description: POST /products
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/POST__products__ede2c5a6.schema.json#/request/body
+  body_example_ref: ../examples/POST__products__ede2c5a6.req-0.json
+response:
+  expect_status:
+  - 201
+  schema_ref: ../schemas/POST__products__ede2c5a6.schema.json#/response/by_status/201
+assert:
+- type: status_in
+  value:
+  - 201
+- type: max_latency_ms
+  value: 5000

@@ -1,0 +1,503 @@
+{
+  "$defs": {
+    "Address": {
+      "additionalProperties": false,
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_primary": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "zip_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "user_id"
+      ],
+      "title": "Address",
+      "type": "object"
+    },
+    "AddressCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "is_primary": {
+          "type": "boolean"
+        },
+        "state": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "zip_code": {
+          "type": "string"
+        }
+      },
+      "title": "AddressCreate",
+      "type": "object"
+    },
+    "Cart": {
+      "additionalProperties": false,
+      "properties": {
+        "cart_id": {
+          "type": "integer"
+        },
+        "coupon_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/dict"
+          },
+          "type": "array"
+        },
+        "total": {
+          "type": "number"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "cart_id",
+        "created_at",
+        "items",
+        "total"
+      ],
+      "title": "Cart",
+      "type": "object"
+    },
+    "CartCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "coupon_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/CartItem"
+          },
+          "type": "array"
+        }
+      },
+      "title": "CartCreate",
+      "type": "object"
+    },
+    "LoginRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginRequest",
+      "type": "object"
+    },
+    "NotificationPreferences": {
+      "additionalProperties": false,
+      "properties": {
+        "marketing": {
+          "$ref": "#/$defs/NotificationType"
+        },
+        "order_updates": {
+          "$ref": "#/$defs/NotificationType"
+        },
+        "promotions": {
+          "$ref": "#/$defs/NotificationType"
+        },
+        "shipping_updates": {
+          "$ref": "#/$defs/NotificationType"
+        }
+      },
+      "title": "NotificationPreferences",
+      "type": "object"
+    },
+    "OrderCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/$defs/OrderItem"
+          },
+          "type": "array"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "payment_method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "shipping_address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AddressCreate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "user_id": {
+          "type": "integer"
+        }
+      },
+      "title": "OrderCreate",
+      "type": "object"
+    },
+    "OrderResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "order_id": {
+          "type": "integer"
+        },
+        "products": {
+          "items": {
+            "$ref": "#/$defs/Product"
+          },
+          "type": "array"
+        },
+        "total": {
+          "type": "number"
+        },
+        "user_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "created_at",
+        "order_id",
+        "products",
+        "total",
+        "user_id"
+      ],
+      "title": "OrderResponse",
+      "type": "object"
+    },
+    "Product": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "in_stock": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "Product",
+      "type": "object"
+    },
+    "ProductCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "in_stock": {
+          "default": true,
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      },
+      "title": "ProductCreate",
+      "type": "object"
+    },
+    "RegisterRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirm_password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "RegisterRequest",
+      "type": "object"
+    },
+    "Review": {
+      "additionalProperties": false,
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "product_id": {
+          "type": "integer"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "verified_purchase": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "comment",
+        "created_at",
+        "id",
+        "product_id",
+        "rating",
+        "title",
+        "user_id",
+        "verified_purchase"
+      ],
+      "title": "Review",
+      "type": "object"
+    },
+    "ReviewCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "verified_purchase": {
+          "type": "boolean"
+        }
+      },
+      "title": "ReviewCreate",
+      "type": "object"
+    },
+    "User": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "id"
+      ],
+      "title": "User",
+      "type": "object"
+    },
+    "UserCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "UserCreate",
+      "type": "object"
+    },
+    "UserUpdate": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "email": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "UserUpdate",
+      "type": "object"
+    }
+  }
+}
