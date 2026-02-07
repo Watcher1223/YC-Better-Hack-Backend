@@ -13,7 +13,7 @@ router = APIRouter(tags=["reviews"])
 async def create_product_review(
     product_id: int = Path(..., gt=0),
     user_id: int = Query(..., gt=0),
-    review: ReviewCreate = ...
+    review: ReviewCreate
 ):
     """Create a product review (endpoint with validation constraints)."""
     product = next((p for p in products_db if p["id"] == product_id), None)
