@@ -9,7 +9,7 @@ from app.database import users_db, products_db
 router = APIRouter(prefix="/orders", tags=["orders"])
 
 
-@router.post("", response_model=OrderResponse, status_code=201, summary="Create an order")
+@router.post("/", response_model=OrderResponse, status_code=201, summary="Create an order")
 async def create_order(order: OrderCreate):
     """Create an order (complex endpoint with nested body schema - OrderItem list and Address)."""
     # Validate user exists
@@ -29,11 +29,11 @@ async def create_order(order: OrderCreate):
         products.append(product)
         total += product["price"] * item.quantity
     
-    return {
-        "order_id": len(products_db) + 1,
-        "user_id": order.user_id,
-        "products": products,
-        "total": round(total, 2),
-        "notes": order.notes,
-        "created_at": datetime.now().isoformat()
-    }
+    return OrderResponse(
+        order_id=len(products_db) + 1,
+        user_id=order.user_id,
+        products=products,
+        total=round(total, 2),
+        notes=order.notes,
+        created_at=datetime.now().isoformat()
+    )
