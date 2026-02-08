@@ -9,7 +9,7 @@ from app.database import users_db, products_db
 router = APIRouter(prefix="/orders", tags=["orders"])
 
 
-@router.post("", response_model=OrderResponse, status_code=201, summary="Create an order")
+@router.post("/", response_model=OrderResponse, status_code=201, summary="Create an order")
 async def create_order(order: OrderCreate):
     """Create an order (complex endpoint with nested body schema - OrderItem list and Address)."""
     # Validate user exists
