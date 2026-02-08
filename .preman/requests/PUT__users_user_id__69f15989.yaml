@@ -1,0 +1,19 @@
+id: PUT__users_user_id__69f15989
+method: PUT
+path: /users/:user_id
+description: PUT /users/:user_id
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/PUT__users_user_id__69f15989.schema.json#/request/body
+  body_example_ref: ../examples/PUT__users_user_id__69f15989.req-0.json
+response:
+  expect_status:
+  - 200
+  schema_ref: ../schemas/PUT__users_user_id__69f15989.schema.json#/response/by_status/200
+assert:
+- type: status_in
+  value:
+  - 200
+- type: max_latency_ms
+  value: 5000
