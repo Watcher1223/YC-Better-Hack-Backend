@@ -1,0 +1,59 @@
+{
+  "request": {
+    "params": {
+      "cookie": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "header": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "path": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "query": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "default": 10,
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "search": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "skip": {
+            "default": 0,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "response": {
+    "by_status": {
+      "200": {
+        "items": {
+          "$ref": "#/$defs/User"
+        },
+        "type": "array"
+      }
+    }
+  }
+}

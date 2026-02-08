@@ -1,0 +1,19 @@
+id: POST__auth_login__acb6d345
+method: POST
+path: /auth/login
+description: POST /auth/login
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/POST__auth_login__acb6d345.schema.json#/request/body
+  body_example_ref: ../examples/POST__auth_login__acb6d345.req-0.json
+response:
+  expect_status:
+  - 200
+  schema_ref: ../schemas/POST__auth_login__acb6d345.schema.json#/response/by_status/200
+assert:
+- type: status_in
+  value:
+  - 200
+- type: max_latency_ms
+  value: 5000
