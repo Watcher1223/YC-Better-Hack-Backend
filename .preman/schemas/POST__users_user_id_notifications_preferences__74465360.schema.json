@@ -1,0 +1,49 @@
+{
+  "request": {
+    "body": {
+      "$ref": "#/$defs/NotificationPreferences"
+    },
+    "params": {
+      "cookie": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "header": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "path": {
+        "additionalProperties": false,
+        "properties": {
+          "user_id": {
+            "exclusiveMinimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "user_id"
+        ],
+        "type": "object"
+      },
+      "query": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  "response": {
+    "by_status": {
+      "200": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "404": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  }
+}
