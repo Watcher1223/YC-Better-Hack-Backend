@@ -1,0 +1,56 @@
+{
+  "request": {
+    "body": {
+      "$ref": "#/$defs/ReviewCreate"
+    },
+    "params": {
+      "cookie": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "header": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "path": {
+        "additionalProperties": false,
+        "properties": {
+          "product_id": {
+            "exclusiveMinimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "product_id"
+        ],
+        "type": "object"
+      },
+      "query": {
+        "additionalProperties": false,
+        "properties": {
+          "user_id": {
+            "exclusiveMinimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "user_id"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "response": {
+    "by_status": {
+      "201": {
+        "$ref": "#/$defs/Review"
+      },
+      "404": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  }
+}
