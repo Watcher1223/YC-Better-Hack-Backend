@@ -13,9 +13,11 @@ router = APIRouter(tags=["reviews"])
 async def create_product_review(
     product_id: int = Path(..., gt=0),
     user_id: int = Query(..., gt=0),
-    review: ReviewCreate = ...
+    review: ReviewCreate
 ):
     """Create a product review (endpoint with validation constraints)."""
+    from app.database import next_review_id
+    
     product = next((p for p in products_db if p["id"] == product_id), None)
     if not product:
         raise HTTPException(status_code=404, detail=f"Product {product_id} not found")
@@ -24,7 +26,6 @@ async def create_product_review(
     if not user:
         raise HTTPException(status_code=404, detail=f"User {user_id} not found")
     
-    global next_review_id
     new_review = {
         "id": next_review_id,
         "product_id": product_id,
@@ -33,5 +34,9 @@ async def create_product_review(
         "created_at": datetime.now()
     }
     reviews_db.append(new_review)
-    next_review_id += 1
-    return new_review
+    
+    # Update the global counter
+    import app.database
+    app.database.next_review_id += 1
+    
+    return Review(**new_review)
