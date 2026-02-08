@@ -1,0 +1,19 @@
+id: POST__users_user_id_addresses__476be7c5
+method: POST
+path: /users/:user_id/addresses
+description: POST /users/:user_id/addresses
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/POST__users_user_id_addresses__476be7c5.schema.json#/request/body
+  body_example_ref: ../examples/POST__users_user_id_addresses__476be7c5.req-0.json
+response:
+  expect_status:
+  - 201
+  schema_ref: ../schemas/POST__users_user_id_addresses__476be7c5.schema.json#/response/by_status/201
+assert:
+- type: status_in
+  value:
+  - 201
+- type: max_latency_ms
+  value: 5000
