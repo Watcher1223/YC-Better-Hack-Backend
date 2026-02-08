@@ -1,0 +1,21 @@
+id: GET__products__f3fc33b5
+method: GET
+path: /products
+description: GET /products
+request:
+  query:
+    skip: 0
+    limit: 10
+    min_price: test
+    max_price: test
+    in_stock: test
+response:
+  expect_status:
+  - 200
+  schema_ref: ../schemas/GET__products__f3fc33b5.schema.json#/response/by_status/200
+assert:
+- type: status_in
+  value:
+  - 200
+- type: max_latency_ms
+  value: 5000
