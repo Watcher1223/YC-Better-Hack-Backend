@@ -38,12 +38,12 @@ async def get_user(
 async def create_user(user: UserCreate):
     """Create a new user."""
     global next_user_id
-    new_user = {
-        "id": next_user_id,
+    new_user = User(
+        id=next_user_id,
         **user.model_dump(),
-        "created_at": datetime.now()
-    }
-    users_db.append(new_user)
+        created_at=datetime.now()
+    )
+    users_db.append(new_user.model_dump())
     next_user_id += 1
     return new_user
 

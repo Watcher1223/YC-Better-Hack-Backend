@@ -1,18 +1,39 @@
-"""Data models for the application."""
-
-from enum import Enum
 from pydantic import BaseModel, Field
+from typing import List, Optional
+from datetime import datetime
 
+class OrderItem(BaseModel):
+    """Model for order item."""
+    productId: int
+    quantity: int
 
-class NotificationType(str, Enum):
-    EMAIL = "email"
-    SMS = "sms"
-    PUSH = "push"
-    NONE = "none"
+class AddressCreate(BaseModel):
+    """Model for creating an address."""
+    street: str
+    city: str
+    state: str
+    zip_code: str
 
+class Product(BaseModel):
+    """Model for product."""
+    id: int
+    name: str
+    price: float
+    description: Optional[str] = None
 
-class NotificationPreferences(BaseModel):
-    order_updates: NotificationType = Field(default=NotificationType.EMAIL)
-    promotions: NotificationType = Field(default=NotificationType.EMAIL)
-    shipping_updates: NotificationType = Field(default=NotificationType.SMS)
-    marketing: NotificationType = Field(default=NotificationType.NONE)
+class OrderCreate(BaseModel):
+    """Model for creating an order (with nested OrderItem list)."""
+    user_id: int = Field(..., gt=0, description="User ID placing the order")
+    items: List[OrderItem] = Field(..., min_length=1, max_length=50, description="List of order items")
+    shipping_address: Optional[AddressCreate] = Field(None, description="Shipping address (nested model)")
+    notes: Optional[str] = Field(None, max_length=1000, description="Order notes")
+    payment_method: Optional[str] = Field(None, max_length=50, description="Payment method")
+
+class OrderResponse(BaseModel):
+    """Model for order response."""
+    order_id: int
+    user_id: int
+    products: List[Product]
+    total: float
+    notes: Optional[str] = None
+    created_at: str
