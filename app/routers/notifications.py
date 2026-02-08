@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException, Path
 from datetime import datetime
 
-from app.models import NotificationPreferences
+from app.models import NotificationPreferences, NotificationType
 from app.database import users_db
 
 router = APIRouter(tags=["notifications"])
@@ -12,7 +12,7 @@ router = APIRouter(tags=["notifications"])
 @router.post("/users/{user_id}/notifications/preferences", status_code=200, summary="Update notification preferences")
 async def update_notification_preferences(
     user_id: int = Path(..., gt=0),
-    preferences: NotificationPreferences = ...
+    preferences: NotificationPreferences
 ):
     """Update user notification preferences (endpoint with enum types)."""
     user = next((u for u in users_db if u["id"] == user_id), None)
