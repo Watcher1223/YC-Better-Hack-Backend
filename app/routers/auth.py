@@ -4,9 +4,11 @@ from fastapi import APIRouter, HTTPException
 from datetime import datetime
 
 from app.models import User, LoginRequest, RegisterRequest
-from app.database import users_db, next_user_id
+from app.database import users_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+next_user_id = 1
 
 
 @router.post("/login", status_code=200, summary="Login")
