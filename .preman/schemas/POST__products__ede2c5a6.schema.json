@@ -1,0 +1,36 @@
+{
+  "request": {
+    "body": {
+      "$ref": "#/$defs/ProductCreate"
+    },
+    "params": {
+      "cookie": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "header": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "path": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "query": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  "response": {
+    "by_status": {
+      "201": {
+        "$ref": "#/$defs/Product"
+      }
+    }
+  }
+}

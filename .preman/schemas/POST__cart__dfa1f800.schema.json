@@ -1,0 +1,53 @@
+{
+  "request": {
+    "body": {
+      "$ref": "#/$defs/CartCreate"
+    },
+    "params": {
+      "cookie": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "header": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "path": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "query": {
+        "additionalProperties": false,
+        "properties": {
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "exclusiveMinimum": 0
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "response": {
+    "by_status": {
+      "201": {
+        "$ref": "#/$defs/Cart"
+      },
+      "404": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  }
+}

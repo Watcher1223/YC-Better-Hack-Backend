@@ -1,0 +1,14 @@
+id: GET__products_product_id__841c9c6b
+method: GET
+path: /products/:product_id
+description: GET /products/:product_id
+response:
+  expect_status:
+  - 200
+  schema_ref: ../schemas/GET__products_product_id__841c9c6b.schema.json#/response/by_status/200
+assert:
+- type: status_in
+  value:
+  - 200
+- type: max_latency_ms
+  value: 5000
