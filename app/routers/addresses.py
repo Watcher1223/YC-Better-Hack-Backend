@@ -18,12 +18,13 @@ async def create_user_address(
     if not user:
         raise HTTPException(status_code=404, detail=f"User {user_id} not found")
     
-    global next_address_id
+    from app.database import next_address_id
     new_address = {
         "id": next_address_id,
         "user_id": user_id,
         **address.model_dump()
     }
     addresses_db.append(new_address)
-    next_address_id += 1
-    return new_address
+    import app.database
+    app.database.next_address_id += 1
+    return Address(**new_address)

@@ -29,18 +29,18 @@ async def create_cart(
     total = 0.0
     for item in cart.items:
         product = products[item.product_id]
-        item_total = product["price"] * item["quantity"]
+        item_total = product["price"] * item.quantity
         total += item_total
         cart_items.append({
             "product_id": item.product_id,
-            "quantity": item["quantity"],
+            "quantity": item.quantity,
             "price": product["price"],
             "subtotal": item_total
         })
     
-    global next_cart_id
+    import app.database
     new_cart = {
-        "cart_id": next_cart_id,
+        "cart_id": app.database.next_cart_id,
         "user_id": user_id,
         "items": cart_items,
         "total": round(total, 2),
@@ -48,5 +48,5 @@ async def create_cart(
         "created_at": datetime.now()
     }
     carts_db.append(new_cart)
-    next_cart_id += 1
+    app.database.next_cart_id += 1
     return new_cart
