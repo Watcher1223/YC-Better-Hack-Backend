@@ -1,0 +1,4 @@
+base_url: https://betterman.opentest.live
+required_env: []
+defaults:
+  TIMEOUT_MS: 10000
