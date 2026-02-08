@@ -1,0 +1,14 @@
+id: DELETE__users_user_id__60ec0eab
+method: DELETE
+path: /users/:user_id
+description: DELETE /users/:user_id
+response:
+  expect_status:
+  - 204
+  schema_ref: ../schemas/DELETE__users_user_id__60ec0eab.schema.json#/response/by_status/204
+assert:
+- type: status_in
+  value:
+  - 204
+- type: max_latency_ms
+  value: 5000
