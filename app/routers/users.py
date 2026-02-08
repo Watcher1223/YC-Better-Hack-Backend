@@ -34,16 +34,16 @@ async def get_user(
     return user
 
 
-@router.post("", response_model=User, status_code=201, summary="Create a new user")
+@router.post("/", response_model=User, status_code=201, summary="Create a new user")
 async def create_user(user: UserCreate):
     """Create a new user."""
     global next_user_id
-    new_user = {
-        "id": next_user_id,
+    new_user = User(
+        id=next_user_id,
         **user.model_dump(),
-        "created_at": datetime.now()
-    }
-    users_db.append(new_user)
+        created_at=datetime.now()
+    )
+    users_db.append(new_user.model_dump())
     next_user_id += 1
     return new_user
 
@@ -73,4 +73,6 @@ async def delete_user(
     if not user:
         raise HTTPException(status_code=404, detail=f"User {user_id} not found")
     users_db = [u for u in users_db if u["id"] != user_id]
-    return None
+    # Return empty response with 204 status code
+    from fastapi import Response
+    return Response(status_code=204)
