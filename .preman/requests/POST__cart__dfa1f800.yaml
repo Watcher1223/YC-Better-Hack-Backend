@@ -1,0 +1,21 @@
+id: POST__cart__dfa1f800
+method: POST
+path: /cart
+description: POST /cart
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/POST__cart__dfa1f800.schema.json#/request/body
+  query:
+    user_id: test
+  body_example_ref: ../examples/POST__cart__dfa1f800.req-0.json
+response:
+  expect_status:
+  - 201
+  schema_ref: ../schemas/POST__cart__dfa1f800.schema.json#/response/by_status/201
+assert:
+- type: status_in
+  value:
+  - 201
+- type: max_latency_ms
+  value: 5000

@@ -1,0 +1,19 @@
+id: POST__users__231b7f8a
+method: POST
+path: /users
+description: POST /users
+request:
+  headers:
+    Content-Type: application/json
+  schema_ref: ../schemas/POST__users__231b7f8a.schema.json#/request/body
+  body_example_ref: ../examples/POST__users__231b7f8a.req-0.json
+response:
+  expect_status:
+  - 201
+  schema_ref: ../schemas/POST__users__231b7f8a.schema.json#/response/by_status/201
+assert:
+- type: status_in
+  value:
+  - 201
+- type: max_latency_ms
+  value: 5000
