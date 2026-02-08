@@ -11,7 +11,7 @@ router = APIRouter(tags=["addresses"])
 @router.post("/users/{user_id}/addresses", response_model=Address, status_code=201, summary="Add address for user")
 async def create_user_address(
     user_id: int = Path(..., gt=0),
-    address: AddressCreate
+    address: AddressCreate = ...
 ):
     """Add an address for a user (nested model endpoint)."""
     user = next((u for u in users_db if u["id"] == user_id), None)

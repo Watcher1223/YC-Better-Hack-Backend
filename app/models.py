@@ -1,33 +1,20 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime
-
-class OrderItem(BaseModel):
-    """Model for order item."""
-    productId: int
-    quantity: int
-
-class AddressCreate(BaseModel):
-    """Model for creating an address."""
-    street: str
-    city: str
-    state: str
-    zip_code: str
 
 class Product(BaseModel):
     """Model for product."""
     id: int
-    name: str
-    price: float
-    description: Optional[str] = None
+    name: str = Field(..., min_length=1, description='Product name')
+    price: float = Field(..., gt=0, description='Product price in USD')
+    description: Optional[str] = Field(None, description='Product description')
+    in_stock: bool = Field(True, description='Whether product is in stock')
 
-class OrderCreate(BaseModel):
-    """Model for creating an order (with nested OrderItem list)."""
-    user_id: int = Field(..., gt=0, description="User ID placing the order")
-    items: List[OrderItem] = Field(..., min_length=1, max_length=50, description="List of order items")
-    shipping_address: Optional[AddressCreate] = Field(None, description="Shipping address (nested model)")
-    notes: Optional[str] = Field(None, max_length=1000, description="Order notes")
-    payment_method: Optional[str] = Field(None, max_length=50, description="Payment method")
+class ProductCreate(BaseModel):
+    """Model for creating a product."""
+    name: str = Field(..., min_length=1)
+    price: float = Field(..., gt=0)
+    description: Optional[str] = None
+    in_stock: bool = True
 
 class OrderResponse(BaseModel):
     """Model for order response."""
@@ -36,4 +23,3 @@ class OrderResponse(BaseModel):
     products: List[Product]
     total: float
     notes: Optional[str] = None
-    created_at: str
