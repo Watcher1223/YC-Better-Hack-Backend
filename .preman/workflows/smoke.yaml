@@ -1,0 +1,25 @@
+name: smoke
+description: Basic smoke test - hit all endpoints
+env: dev
+steps:
+- request: GET__root__8659caa8
+- request: GET__health__bf9d4f93
+- request: GET__products__f3fc33b5
+  capture:
+    product_id: $[0]._id
+- request: GET__users__458d8e06
+  capture:
+    user_id: $[0]._id
+- request: GET__products_product_id__841c9c6b
+- request: GET__users_user_id__fe6f5564
+- request: POST__auth_login__acb6d345
+- request: POST__auth_register__69e67e3a
+- request: POST__cart__dfa1f800
+- request: POST__orders__64d9b140
+- request: POST__products__ede2c5a6
+- request: POST__products_product_id_reviews__31acfb1a
+- request: POST__users__231b7f8a
+- request: POST__users_user_id_addresses__476be7c5
+- request: POST__users_user_id_notifications_preferences__74465360
+- request: PUT__users_user_id__69f15989
+- request: DELETE__users_user_id__60ec0eab
