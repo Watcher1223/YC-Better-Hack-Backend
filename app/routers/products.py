@@ -20,8 +20,12 @@ async def list_products(
     """List products with filtering."""
     result = products_db[skip:skip+limit]
     if min_price is not None:
+        if min_price < 0:
+            raise HTTPException(status_code=422, detail="min_price must be >= 0")
         result = [p for p in result if p["price"] >= min_price]
     if max_price is not None:
+        if max_price < 0:
+            raise HTTPException(status_code=422, detail="max_price must be >= 0")
         result = [p for p in result if p["price"] <= max_price]
     if in_stock is not None:
         result = [p for p in result if p["in_stock"] == in_stock]
@@ -44,7 +48,7 @@ async def create_product(product: ProductCreate):
     """Create a new product."""
     global next_product_id
     new_product = {
-        "product_id": next_product_id,
+        "id": next_product_id,
         **product.model_dump()
     }
     products_db.append(new_product)
